@@ -1,0 +1,64 @@
+<!doctype html>
+<html ng-app="ToDoApp">
+  <head>
+	<!-- META -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Todo App</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Francois+One' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.1.0.js"></script>
+	<script src="core.js"></script>
+
+  </head>
+  <body>
+	<div class="container"  ng-controller="MainCtrl">
+
+		<div class="jumbotron text-center">
+			<h1>ToDo App</h1>
+		</div>
+		
+        <uib-accordion close-others="oneAtATime">
+          <uib-accordion-group heading="{{todo.ToDoName}}" ng-repeat="todo in todos" ng-click="getItems(todo._id)">
+            
+            <ul class="list-style">
+              <li class="item-style panel" ng-repeat="item in items">
+                {{item.ItemName}}<a type="btn" class="glyphicon glyphicon-trash trash-icon pull-right" ng-click="deleteItem(item._id)"></a>
+              </li>
+                
+              <li class="input-group addInput">
+				    <!-- Bind this value to itemData.ItemName in Angular -->
+				<input type="text" class="form-control input-lg" placeholder="Add item to this Todo" 
+                       ng-model="itemData.ItemName" aria-describedby="basic-addon2">
+					
+				    <!-- createItem() will create a new item -->
+				<span type="submit" class="input-group-addon addButton"  ng-click="createItem(todo._id)">Add</span>
+              </li>
+            </ul>
+              
+              <button type="button" class="btn btn-danger pull-right" ng-click="deleteTodo(todo._id)">Delete</button>
+          </uib-accordion-group>   
+        </uib-accordion>
+
+		<!-- Create ToDo Form -->
+		<div class="row col-xs-12 addGroup">
+            <div class="input-group addInput">
+				
+				    <!-- Bind this value to formData.ToDoName in Angular -->
+				<input type="text" class="form-control input-lg" placeholder="Add something to do" 
+                       ng-model="formData.ToDoName" aria-describedby="basic-addon2">
+					
+				    <!-- createToDo() WILL CREATE NEW TODOS -->
+				<span type="submit" class="input-group-addon addButton" id="basic-addon2" ng-click="createTodo()">Add</span>
+            </div> 
+		</div>
+	</div>
+
+  </body>
+</html>
