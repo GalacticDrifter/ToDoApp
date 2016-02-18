@@ -1,6 +1,6 @@
 # ToDo App
 
-This is a simple Node ToDo App.
+This is a Node ToDo App with sub-items.
 
 ## Requirements
 
