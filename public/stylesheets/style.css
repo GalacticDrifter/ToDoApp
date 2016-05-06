@@ -1,6 +1,13 @@
 html { 
     overflow-y:scroll; 
 }
+
+@font-face {
+    font-family: 'Francois One', sans-serif;
+    src: url(/fonts/FrancoisOne.ttf);
+}
+
+
 body {
     background-color: #fff;
     font-family: 'Francois One', sans-serif;
@@ -73,4 +80,12 @@ body {
 
 .ng-binding {
     font-size: 20px;
+}
+
+.page-header {
+    margin-top: 20px;
+}
+
+h2 {
+    margin-top: 10px;
 }

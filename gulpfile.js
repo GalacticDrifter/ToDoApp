@@ -2,6 +2,8 @@ var gulp = require('gulp'),
     nodemon = require('gulp-nodemon'),
     jshint = require('gulp-jshint'),
     sass = require('gulp-sass'),
+    ejs = require('gulp-ejs'),
+    gutil = require('gulp-util'),
     sourcemaps = require('gulp-sourcemaps');
 
 //define the default task and add the watch task to it
@@ -9,8 +11,8 @@ gulp.task('default', ['watch']);
 
 gulp.task('start', function () {
   nodemon({
-    script: 'server.js'
-  , ext: 'js html'
+    script: './bin/www'
+  //, ext: 'js html'
   , env: { 'NODE_ENV': 'development' }
   })
 })
@@ -21,14 +23,20 @@ gulp.task('lint', function () {
 })
  
 gulp.task('develop', function () {
-  nodemon({ script: 'server.js'
-          , ext: 'html js'
+  nodemon({ script: './bin/www'
+          //, ext: 'html js'
           , ignore: ['ignored.js']
           , tasks: ['lint'] })
     .on('restart', function () {
       console.log('restarted!')
     })
 })
+
+gulp.src('./views/*.ejs')
+	.pipe(ejs({
+		msg: 'Hello Gulp!'
+	}).on('error', gutil.log))
+	.pipe(gulp.dest('./*'));
 
 gulp.task('build-css', function() {
   return gulp.src('public/css/**/*.css')
@@ -40,6 +48,7 @@ gulp.task('build-css', function() {
 
 //configure which files to watch and what tasks to use on file changes
 gulp.task('watch', function() {
-  gulp.watch('app/**/*.js', ['jshint']);
+  gulp.watch('./**/*.js', ['jshint']);
   gulp.watch('public/css/**/*.css', ['build-css']);
+  gulp.watch('views/*.ejs', ['ejs']);
 });
